@@ -1,0 +1,198 @@
+{
+    "appid": "3b507b88-a421-4925-b685-1eb4392c5476",
+    "name": "Safe Browsing",
+    "description": "Integrate with Google Safe Browsing to execute actions like <b>url reputation</b>, <b>domain reputation</b>, and <b>ip reputation</b>",
+    "publisher": "Phantom",
+    "package_name": "phantom_safebrowsing",
+    "type": "information",
+    "license": "Copyright (c) Phantom Cyber Corporation 2016",
+    "main_module": "safebrowsing_connector.pyc",
+    "app_version": "1.0.4",
+    "utctime_updated": "2016-12-13T18:45:58.000000Z",
+    "product_vendor": "Google",
+    "product_name": "Safe Browsing",
+    "product_version_regex": ".*",
+    "min_phantom_version": "2.0.264",
+    "logo": "google.png",
+    "configuration": {
+      "key": {
+        "data_type": "string",
+        "description": "API Key",
+        "required": true,
+        "order": 0
+      }
+    },
+    "actions": [
+      {
+        "action" : "test connectivity",
+        "description": "Checks API Key with Google Safe Browsing",
+        "verbose": "",
+        "type": "test",
+        "identifier": "test_connectivity",
+        "read_only": true,
+        "parameters": {},
+        "output": [],
+        "versions": "EQ(*)"
+      },
+      {
+        "action" : "url reputation",
+        "description": "Determine the reputation of a URL",
+        "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior",
+        "type": "investigate",
+        "identifier": "url_reputation",
+        "read_only": true,
+        "parameters": {
+          "url": {
+            "description": "Determines the URL reputation",
+            "primary": true,
+            "data_type": "string",
+            "required": true,
+            "contains": [ "url" ]
+          }
+        },
+        "render": {
+          "width": 12,
+          "title": "List Channels",
+          "type": "table",
+          "height": 5
+        },
+        "output": [
+          {
+            "data_path": "action_result.data.*.matches.*.threat.url",
+            "data_type": "string",
+            "contains": [ "url" ]
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.threatType",
+            "data_type": "string",
+            "column_name": "Threat Type",
+            "column_order": 1
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.platformType",
+            "data_type": "string",
+            "column_name": "Platform Type",
+            "column_order": 2
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.cacheDuration",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.threatEntryType",
+            "data_type": "string",
+            "column_name": "Threat Entry Type",
+            "column_order": 3
+          },
+          {
+            "data_path": "action_result.status",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.message",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.summary.num_threat_matches",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.parameter.url",
+            "data_type": "string",
+            "column_name": "URL",
+            "column_order": 0,
+            "contains": [ "url" ]
+          },
+          {
+            "data_path": "summary.total_objects",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "summary.total_objects_successful",
+            "data_type": "numeric"
+          }
+        ],
+        "versions":"EQ(*)"
+      },
+      {
+        "action" : "domain reputation",
+        "description": "Determine the reputation of a domain",
+        "verbose": "Checks with Google Safe Browsing for records of a domain's previous malicious behavior",
+        "type": "investigate",
+        "identifier": "domain_reputation",
+        "read_only": true,
+        "parameters": {
+          "domain": {
+            "description": "Determines the domain reputation",
+            "primary": true,
+            "data_type": "string",
+            "required": true,
+            "contains": [ "domain" ]
+          }
+        },
+        "render": {
+          "width": 12,
+          "title": "List Channels",
+          "type": "table",
+          "height": 5
+        },
+        "output": [
+          {
+            "data_path": "action_result.data.*.matches.*.threat.url",
+            "data_type": "string",
+            "contains": [ "domain" ]
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.threatType",
+            "data_type": "string",
+            "column_name": "Threat Type",
+            "column_order": 1
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.platformType",
+            "data_type": "string",
+            "column_name": "Platform Type",
+            "column_order": 2
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.cacheDuration",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.threatEntryType",
+            "data_type": "string",
+            "column_name": "Threat Entry Type",
+            "column_order": 3
+          },
+          {
+            "data_path": "action_result.status",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.message",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.summary.num_threat_matches",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.parameter.domain",
+            "data_type": "string",
+            "column_name": "Domain",
+            "column_order": 0,
+            "contains": [ "domain" ]
+          },
+          {
+            "data_path": "summary.total_objects",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "summary.total_objects_successful",
+            "data_type": "numeric"
+          }
+        ],
+        "versions":"EQ(*)"
+      }
+    ]
+}
