@@ -1,22 +1,22 @@
 {
     "appid": "3b507b88-a421-4925-b685-1eb4392c5476",
     "name": "Safe Browsing",
-    "description": "Integrate with Google Safe Browsing to execute actions like <b>url reputation</b>, <b>domain reputation</b>, and <b>ip reputation</b>",
+    "description": "This app Integrate with Google Safe Browsing to execute reputation-based actions",
     "publisher": "Phantom",
     "package_name": "phantom_safebrowsing",
     "type": "information",
-    "license": "Copyright (c) Phantom Cyber Corporation 2016",
+    "license": "Copyright (c) Phantom Cyber Corporation 2016-2017",
     "main_module": "safebrowsing_connector.pyc",
     "app_version": "1.0.5",
     "utctime_updated": "2017-04-29T02:30:54.000000Z",
     "product_vendor": "Google",
     "product_name": "Safe Browsing",
     "product_version_regex": ".*",
-    "min_phantom_version": "2.0.264",
+    "min_phantom_version": "3.0.247",
     "logo": "google.png",
     "configuration": {
       "key": {
-        "data_type": "string",
+        "data_type": "password",
         "description": "API Key",
         "required": true,
         "order": 0
