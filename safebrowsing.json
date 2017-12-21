@@ -7,205 +7,192 @@
     "type": "information",
     "license": "Copyright (c) Phantom Cyber Corporation 2016",
     "main_module": "safebrowsing_connector.pyc",
-    "app_version": "1.0.8",
-    "utctime_updated": "2017-12-21T03:24:53.000000Z",
+    "app_version": "1.0.5",
+    "utctime_updated": "2017-04-29T02:30:54.000000Z",
     "product_vendor": "Google",
     "product_name": "Safe Browsing",
     "product_version_regex": ".*",
     "min_phantom_version": "2.0.264",
-    "logo": "logo_google.svg",
-    "logo_dark": "logo_google_dark.svg",
+    "logo": "google.png",
     "configuration": {
-        "key": {
-            "data_type": "string",
-            "description": "API Key",
-            "required": true,
-            "order": 0
-        }
+      "key": {
+        "data_type": "string",
+        "description": "API Key",
+        "required": true,
+        "order": 0
+      }
     },
     "actions": [
-        {
-            "action": "test connectivity",
-            "description": "Checks API Key with Google Safe Browsing",
-            "verbose": "",
-            "type": "test",
-            "identifier": "test_connectivity",
-            "read_only": true,
-            "parameters": {},
-            "output": [],
-            "versions": "EQ(*)"
+      {
+        "action" : "test connectivity",
+        "description": "Checks API Key with Google Safe Browsing",
+        "verbose": "",
+        "type": "test",
+        "identifier": "test_connectivity",
+        "read_only": true,
+        "parameters": {},
+        "output": [],
+        "versions": "EQ(*)"
+      },
+      {
+        "action" : "url reputation",
+        "description": "Determine the reputation of a URL",
+        "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior",
+        "type": "investigate",
+        "identifier": "url_reputation",
+        "read_only": true,
+        "parameters": {
+          "url": {
+            "description": "Determines the URL reputation",
+            "primary": true,
+            "data_type": "string",
+            "required": true,
+            "contains": [ "url" ]
+          }
         },
-        {
-            "action": "url reputation",
-            "description": "Determine the reputation of a URL",
-            "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior",
-            "type": "investigate",
-            "identifier": "url_reputation",
-            "read_only": true,
-            "parameters": {
-                "url": {
-                    "description": "Determines the URL reputation",
-                    "primary": true,
-                    "data_type": "string",
-                    "required": true,
-                    "contains": [
-                        "url"
-                    ]
-                }
-            },
-            "render": {
-                "width": 12,
-                "title": "List Channels",
-                "type": "table",
-                "height": 5
-            },
-            "output": [
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.url",
-                    "data_type": "string",
-                    "column_name": "URL",
-                    "column_order": 0,
-                    "contains": [
-                        "url"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.cacheDuration",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.platformType",
-                    "data_type": "string",
-                    "column_name": "Platform Type",
-                    "column_order": 2
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threat.url",
-                    "data_type": "string",
-                    "contains": [
-                        "url"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threatEntryType",
-                    "data_type": "string",
-                    "column_name": "Threat Entry Type",
-                    "column_order": 3
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threatType",
-                    "data_type": "string",
-                    "column_name": "Threat Type",
-                    "column_order": 1
-                },
-                {
-                    "data_path": "action_result.summary.num_threat_matches",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric"
-                }
-            ],
-            "versions": "EQ(*)"
+        "render": {
+          "width": 12,
+          "title": "List Channels",
+          "type": "table",
+          "height": 5
         },
-        {
-            "action": "domain reputation",
-            "description": "Determine the reputation of a domain",
-            "verbose": "Checks with Google Safe Browsing for records of a domain's previous malicious behavior",
-            "type": "investigate",
-            "identifier": "domain_reputation",
-            "read_only": true,
-            "parameters": {
-                "domain": {
-                    "description": "Determines the domain reputation",
-                    "primary": true,
-                    "data_type": "string",
-                    "required": true,
-                    "contains": [
-                        "domain"
-                    ]
-                }
-            },
-            "render": {
-                "width": 12,
-                "title": "List Channels",
-                "type": "table",
-                "height": 5
-            },
-            "output": [
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.domain",
-                    "data_type": "string",
-                    "column_name": "Domain",
-                    "column_order": 0,
-                    "contains": [
-                        "domain"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.cacheDuration",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.platformType",
-                    "data_type": "string",
-                    "column_name": "Platform Type",
-                    "column_order": 2
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threat.url",
-                    "data_type": "string",
-                    "contains": [
-                        "domain"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threatEntryType",
-                    "data_type": "string",
-                    "column_name": "Threat Entry Type",
-                    "column_order": 3
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threatType",
-                    "data_type": "string",
-                    "column_name": "Threat Type",
-                    "column_order": 1
-                },
-                {
-                    "data_path": "action_result.summary.num_threat_matches",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric"
-                }
-            ],
-            "versions": "EQ(*)"
-        }
+        "output": [
+          {
+            "data_path": "action_result.data.*.matches.*.threat.url",
+            "data_type": "string",
+            "contains": [ "url" ]
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.threatType",
+            "data_type": "string",
+            "column_name": "Threat Type",
+            "column_order": 1
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.platformType",
+            "data_type": "string",
+            "column_name": "Platform Type",
+            "column_order": 2
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.cacheDuration",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.threatEntryType",
+            "data_type": "string",
+            "column_name": "Threat Entry Type",
+            "column_order": 3
+          },
+          {
+            "data_path": "action_result.status",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.message",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.summary.num_threat_matches",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.parameter.url",
+            "data_type": "string",
+            "column_name": "URL",
+            "column_order": 0,
+            "contains": [ "url" ]
+          },
+          {
+            "data_path": "summary.total_objects",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "summary.total_objects_successful",
+            "data_type": "numeric"
+          }
+        ],
+        "versions":"EQ(*)"
+      },
+      {
+        "action" : "domain reputation",
+        "description": "Determine the reputation of a domain",
+        "verbose": "Checks with Google Safe Browsing for records of a domain's previous malicious behavior",
+        "type": "investigate",
+        "identifier": "domain_reputation",
+        "read_only": true,
+        "parameters": {
+          "domain": {
+            "description": "Determines the domain reputation",
+            "primary": true,
+            "data_type": "string",
+            "required": true,
+            "contains": [ "domain" ]
+          }
+        },
+        "render": {
+          "width": 12,
+          "title": "List Channels",
+          "type": "table",
+          "height": 5
+        },
+        "output": [
+          {
+            "data_path": "action_result.data.*.matches.*.threat.url",
+            "data_type": "string",
+            "contains": [ "domain" ]
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.threatType",
+            "data_type": "string",
+            "column_name": "Threat Type",
+            "column_order": 1
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.platformType",
+            "data_type": "string",
+            "column_name": "Platform Type",
+            "column_order": 2
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.cacheDuration",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.matches.*.threatEntryType",
+            "data_type": "string",
+            "column_name": "Threat Entry Type",
+            "column_order": 3
+          },
+          {
+            "data_path": "action_result.status",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.message",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.summary.num_threat_matches",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "action_result.parameter.domain",
+            "data_type": "string",
+            "column_name": "Domain",
+            "column_order": 0,
+            "contains": [ "domain" ]
+          },
+          {
+            "data_path": "summary.total_objects",
+            "data_type": "numeric"
+          },
+          {
+            "data_path": "summary.total_objects_successful",
+            "data_type": "numeric"
+          }
+        ],
+        "versions":"EQ(*)"
+      }
     ]
 }
