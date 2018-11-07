@@ -1,2 +1,3 @@
 *.py
 exclude_files.txt
+.git*
