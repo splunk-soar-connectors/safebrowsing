@@ -1,16 +1,8 @@
-# --
 # File: safebrowsing_connector.py
+# Copyright (c) 2016-2018 Splunk Inc.
 #
-# Copyright (c) Phantom Cyber Corporation, 2016-2018
-#
-# This unpublished material is proprietary to Phantom Cyber.
-# All rights reserved. The methods and
-# techniques described herein are considered trade secrets
-# and/or confidential. Reproduction or distribution, in whole
-# or in part, is forbidden except by express written permission
-# of Phantom Cyber.
-#
-# --
+# SPLUNK CONFIDENTIAL - Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
 
 # Phantom App imports
 import phantom.app as phantom
@@ -166,6 +158,12 @@ if __name__ == '__main__':
         print(json.dumps(in_json, indent=4))
 
         connector = SafeBrowsingConnector()
+        connector.print_progress_message = True
+        ret_val = connector._handle_action(json.dumps(in_json), None)
+        print (json.dumps(json.loads(ret_val), indent=4))
+
+    exit(0)
+)
         connector.print_progress_message = True
         ret_val = connector._handle_action(json.dumps(in_json), None)
         print (json.dumps(json.loads(ret_val), indent=4))

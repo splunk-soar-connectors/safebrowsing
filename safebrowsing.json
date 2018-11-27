@@ -5,7 +5,7 @@
     "publisher": "Phantom",
     "package_name": "phantom_safebrowsing",
     "type": "information",
-    "license": "Copyright (c) Phantom Cyber Corporation, 2016-2018",
+    "license": "Copyright (c) 2016-2018 Splunk Inc.",
     "main_module": "safebrowsing_connector.pyc",
     "app_version": "1.0.8",
     "utctime_updated": "2018-01-26T00:50:30.000000Z",
@@ -74,10 +74,11 @@
                     "column_name": "URL",
                     "column_order": 0,
                     "contains": [
-                        "url"
+                        "url",
+                        "domain"
                     ],
                     "example_values": [
-                        "https://www.google.com"
+                        "https://www.Splunk.com"
                     ]
                 },
                 {
@@ -94,7 +95,11 @@
                     "data_path": "action_result.data.*.matches.*.threat.url",
                     "data_type": "string",
                     "contains": [
-                        "url"
+                        "url",
+                        "domain"
+                    ],
+                    "example_values": [
+                        "https://www.splunk.com"
                     ]
                 },
                 {
@@ -117,7 +122,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Google Safe Browsing has no threat information about this URL"
+                        "Splunk Safe Browsing has no threat information about this URL"
                     ]
                 },
                 {
@@ -140,7 +145,7 @@
         {
             "action": "domain reputation",
             "description": "Determine the reputation of a domain",
-            "verbose": "Checks with Google Safe Browsing for records of a domain's previous malicious behavior",
+            "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior",
             "type": "investigate",
             "identifier": "domain_reputation",
             "read_only": true,
@@ -176,10 +181,11 @@
                     "column_name": "Domain",
                     "column_order": 0,
                     "contains": [
-                        "domain"
+                        "domain",
+                        "url"
                     ],
                     "example_values": [
-                        "www.google.com"
+                        "www.splunk.com"
                     ]
                 },
                 {
@@ -196,7 +202,11 @@
                     "data_path": "action_result.data.*.matches.*.threat.url",
                     "data_type": "string",
                     "contains": [
-                        "domain"
+                        "domain",
+                        "url"
+                    ],
+                    "example_values": [
+                        "www.splunk.com"
                     ]
                 },
                 {
@@ -219,7 +229,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Google Safe Browsing has no threat information about this domain"
+                        "Splunk Safe Browsing has no threat information about this domain"
                     ]
                 },
                 {
