@@ -12,7 +12,7 @@
     "product_vendor": "Google",
     "product_name": "Safe Browsing",
     "product_version_regex": ".*",
-    "min_phantom_version": "3.0.247",
+    "min_phantom_version": "3.5.210",
     "logo": "logo_google.svg",
     "logo_dark": "logo_google_dark.svg",
     "configuration": {
@@ -49,7 +49,8 @@
                     "data_type": "string",
                     "required": true,
                     "contains": [
-                        "url"
+                        "url",
+                        "domain"
                     ]
                 }
             },
@@ -61,45 +62,11 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.data.*.matches.*.threat.url",
-                    "data_type": "string",
-                    "contains": [
-                        "url"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threatType",
-                    "data_type": "string",
-                    "column_name": "Threat Type",
-                    "column_order": 1
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.platformType",
-                    "data_type": "string",
-                    "column_name": "Platform Type",
-                    "column_order": 2
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.cacheDuration",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threatEntryType",
-                    "data_type": "string",
-                    "column_name": "Threat Entry Type",
-                    "column_order": 3
-                },
-                {
                     "data_path": "action_result.status",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary.num_threat_matches",
-                    "data_type": "numeric"
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.url",
@@ -108,15 +75,64 @@
                     "column_order": 0,
                     "contains": [
                         "url"
+                    ],
+                    "example_values": [
+                        "https://www.google.com"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.cacheDuration",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.platformType",
+                    "data_type": "string",
+                    "column_name": "Platform Type",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.threat.url",
+                    "data_type": "string",
+                    "contains": [
+                        "url"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.threatEntryType",
+                    "data_type": "string",
+                    "column_name": "Threat Entry Type",
+                    "column_order": 3
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.threatType",
+                    "data_type": "string",
+                    "column_name": "Threat Type",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.summary.num_threat_matches",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Google Safe Browsing has no threat information about this URL"
                     ]
                 },
                 {
                     "data_path": "summary.total_objects",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 },
                 {
                     "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "versions": "EQ(*)"
@@ -135,7 +151,8 @@
                     "data_type": "string",
                     "required": true,
                     "contains": [
-                        "domain"
+                        "domain",
+                        "url"
                     ]
                 }
             },
@@ -147,45 +164,11 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.data.*.matches.*.threat.url",
-                    "data_type": "string",
-                    "contains": [
-                        "domain"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threatType",
-                    "data_type": "string",
-                    "column_name": "Threat Type",
-                    "column_order": 1
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.platformType",
-                    "data_type": "string",
-                    "column_name": "Platform Type",
-                    "column_order": 2
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.cacheDuration",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.matches.*.threatEntryType",
-                    "data_type": "string",
-                    "column_name": "Threat Entry Type",
-                    "column_order": 3
-                },
-                {
                     "data_path": "action_result.status",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary.num_threat_matches",
-                    "data_type": "numeric"
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.domain",
@@ -194,15 +177,64 @@
                     "column_order": 0,
                     "contains": [
                         "domain"
+                    ],
+                    "example_values": [
+                        "www.google.com"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.cacheDuration",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.platformType",
+                    "data_type": "string",
+                    "column_name": "Platform Type",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.threat.url",
+                    "data_type": "string",
+                    "contains": [
+                        "domain"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.threatEntryType",
+                    "data_type": "string",
+                    "column_name": "Threat Entry Type",
+                    "column_order": 3
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.threatType",
+                    "data_type": "string",
+                    "column_name": "Threat Type",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.summary.num_threat_matches",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Google Safe Browsing has no threat information about this domain"
                     ]
                 },
                 {
                     "data_path": "summary.total_objects",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 },
                 {
                     "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "versions": "EQ(*)"
