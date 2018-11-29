@@ -5,14 +5,14 @@
     "publisher": "Phantom",
     "package_name": "phantom_safebrowsing",
     "type": "information",
-    "license": "Copyright (c) Phantom Cyber Corporation, 2016-2018",
+    "license": "Copyright (c) 2016-2018 Splunk Inc.",
     "main_module": "safebrowsing_connector.pyc",
     "app_version": "1.0.8",
     "utctime_updated": "2018-01-26T00:50:30.000000Z",
     "product_vendor": "Google",
     "product_name": "Safe Browsing",
     "product_version_regex": ".*",
-    "min_phantom_version": "3.0.247",
+    "min_phantom_version": "3.5.210",
     "logo": "logo_google.svg",
     "logo_dark": "logo_google_dark.svg",
     "configuration": {
@@ -49,7 +49,8 @@
                     "data_type": "string",
                     "required": true,
                     "contains": [
-                        "url"
+                        "url",
+                        "domain"
                     ]
                 }
             },
@@ -61,17 +62,28 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.data.*.matches.*.threat.url",
+                    "data_path": "action_result.status",
                     "data_type": "string",
-                    "contains": [
-                        "url"
+                    "example_values": [
+                        "success"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.matches.*.threatType",
+                    "data_path": "action_result.parameter.url",
                     "data_type": "string",
-                    "column_name": "Threat Type",
-                    "column_order": 1
+                    "column_name": "URL",
+                    "column_order": 0,
+                    "contains": [
+                        "url",
+                        "domain"
+                    ],
+                    "example_values": [
+                        "https://www.Splunk.com"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.cacheDuration",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.matches.*.platformType",
@@ -80,8 +92,15 @@
                     "column_order": 2
                 },
                 {
-                    "data_path": "action_result.data.*.matches.*.cacheDuration",
-                    "data_type": "string"
+                    "data_path": "action_result.data.*.matches.*.threat.url",
+                    "data_type": "string",
+                    "contains": [
+                        "url",
+                        "domain"
+                    ],
+                    "example_values": [
+                        "https://www.splunk.com"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.matches.*.threatEntryType",
@@ -90,33 +109,35 @@
                     "column_order": 3
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
+                    "data_path": "action_result.data.*.matches.*.threatType",
+                    "data_type": "string",
+                    "column_name": "Threat Type",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.summary.num_threat_matches",
                     "data_type": "numeric"
                 },
                 {
-                    "data_path": "action_result.parameter.url",
+                    "data_path": "action_result.message",
                     "data_type": "string",
-                    "column_name": "URL",
-                    "column_order": 0,
-                    "contains": [
-                        "url"
+                    "example_values": [
+                        "Splunk Safe Browsing has no threat information about this URL"
                     ]
                 },
                 {
                     "data_path": "summary.total_objects",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 },
                 {
                     "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "versions": "EQ(*)"
@@ -124,7 +145,7 @@
         {
             "action": "domain reputation",
             "description": "Determine the reputation of a domain",
-            "verbose": "Checks with Google Safe Browsing for records of a domain's previous malicious behavior",
+            "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior",
             "type": "investigate",
             "identifier": "domain_reputation",
             "read_only": true,
@@ -135,7 +156,8 @@
                     "data_type": "string",
                     "required": true,
                     "contains": [
-                        "domain"
+                        "domain",
+                        "url"
                     ]
                 }
             },
@@ -147,17 +169,28 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.data.*.matches.*.threat.url",
+                    "data_path": "action_result.status",
                     "data_type": "string",
-                    "contains": [
-                        "domain"
+                    "example_values": [
+                        "success"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.matches.*.threatType",
+                    "data_path": "action_result.parameter.domain",
                     "data_type": "string",
-                    "column_name": "Threat Type",
-                    "column_order": 1
+                    "column_name": "Domain",
+                    "column_order": 0,
+                    "contains": [
+                        "domain",
+                        "url"
+                    ],
+                    "example_values": [
+                        "www.splunk.com"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.matches.*.cacheDuration",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.matches.*.platformType",
@@ -166,8 +199,15 @@
                     "column_order": 2
                 },
                 {
-                    "data_path": "action_result.data.*.matches.*.cacheDuration",
-                    "data_type": "string"
+                    "data_path": "action_result.data.*.matches.*.threat.url",
+                    "data_type": "string",
+                    "contains": [
+                        "domain",
+                        "url"
+                    ],
+                    "example_values": [
+                        "www.splunk.com"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.matches.*.threatEntryType",
@@ -176,33 +216,35 @@
                     "column_order": 3
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
+                    "data_path": "action_result.data.*.matches.*.threatType",
+                    "data_type": "string",
+                    "column_name": "Threat Type",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.summary.num_threat_matches",
                     "data_type": "numeric"
                 },
                 {
-                    "data_path": "action_result.parameter.domain",
+                    "data_path": "action_result.message",
                     "data_type": "string",
-                    "column_name": "Domain",
-                    "column_order": 0,
-                    "contains": [
-                        "domain"
+                    "example_values": [
+                        "Splunk Safe Browsing has no threat information about this domain"
                     ]
                 },
                 {
                     "data_path": "summary.total_objects",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 },
                 {
                     "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "versions": "EQ(*)"
