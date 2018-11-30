@@ -111,6 +111,7 @@ class SafeBrowsingConnector(BaseConnector):
 
         if (not resp_json):
             message = "Google Safe Browsing has no threat information about this {}".format(param_type if param_type == 'domain' else param_type.upper())
+            action_result.set_summary({'num_threat_matches': 0})
 
         else:
 
