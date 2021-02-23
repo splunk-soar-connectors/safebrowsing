@@ -2,17 +2,21 @@
     "appid": "3b507b88-a421-4925-b685-1eb4392c5476",
     "name": "Safe Browsing",
     "description": "This app Integrate with Google Safe Browsing to execute reputation-based actions",
-    "publisher": "Phantom",
+    "publisher": "Splunk",
     "package_name": "phantom_safebrowsing",
     "type": "information",
-    "license": "Copyright (c) 2016-2018 Splunk Inc.",
-    "main_module": "safebrowsing_connector.pyc",
-    "app_version": "1.0.11",
+    "license": "Copyright (c) 2016-2021 Splunk Inc.",
+    "main_module": "safebrowsing_connector.py",
+    "app_version": "2.0.0",
     "utctime_updated": "2018-12-13T22:04:06.000000Z",
     "product_vendor": "Google",
     "product_name": "Safe Browsing",
     "product_version_regex": ".*",
-    "min_phantom_version": "3.5.210",
+    "min_phantom_version": "4.9.39220",
+    "latest_tested_versions": [
+        "Safe Browsing API v4 on 02/24/2021"
+    ],
+    "python_version": "3",
     "logo": "logo_google.svg",
     "logo_dark": "logo_google_dark.svg",
     "configuration": {
@@ -27,7 +31,6 @@
         {
             "action": "test connectivity",
             "description": "Checks API Key with Google Safe Browsing",
-            "verbose": "",
             "type": "test",
             "identifier": "test_connectivity",
             "read_only": true,
@@ -38,7 +41,7 @@
         {
             "action": "url reputation",
             "description": "Determine the reputation of a URL",
-            "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior",
+            "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior.",
             "type": "investigate",
             "identifier": "url_reputation",
             "read_only": true,
@@ -65,7 +68,8 @@
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
-                        "success"
+                        "success",
+                        "failed"
                     ]
                 },
                 {
@@ -145,7 +149,7 @@
         {
             "action": "domain reputation",
             "description": "Determine the reputation of a domain",
-            "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior",
+            "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior.",
             "type": "investigate",
             "identifier": "domain_reputation",
             "read_only": true,
@@ -172,7 +176,8 @@
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
-                        "success"
+                        "success",
+                        "failed"
                     ]
                 },
                 {
