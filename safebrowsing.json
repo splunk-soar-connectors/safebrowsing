@@ -126,7 +126,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Splunk Safe Browsing has no threat information about this URL"
+                        "Google Safe Browsing has no threat information about this URL"
                     ]
                 },
                 {
@@ -149,7 +149,7 @@
         {
             "action": "domain reputation",
             "description": "Determine the reputation of a domain",
-            "verbose": "Checks with Google Safe Browsing for records of a URL's previous malicious behavior.",
+            "verbose": "Checks with Google Safe Browsing for records of a domain's previous malicious behavior.",
             "type": "investigate",
             "identifier": "domain_reputation",
             "read_only": true,
@@ -234,7 +234,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Splunk Safe Browsing has no threat information about this domain"
+                        "Google Safe Browsing has no threat information about this domain"
                     ]
                 },
                 {
