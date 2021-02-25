@@ -82,7 +82,7 @@
                         "domain"
                     ],
                     "example_values": [
-                        "https://www.Splunk.com"
+                        "https://www.test.com"
                     ]
                 },
                 {
@@ -103,7 +103,7 @@
                         "domain"
                     ],
                     "example_values": [
-                        "https://www.splunk.com"
+                        "https://www.test.com"
                     ]
                 },
                 {
@@ -190,7 +190,7 @@
                         "url"
                     ],
                     "example_values": [
-                        "www.splunk.com"
+                        "www.test.com"
                     ]
                 },
                 {
@@ -211,7 +211,7 @@
                         "url"
                     ],
                     "example_values": [
-                        "www.splunk.com"
+                        "www.test.com"
                     ]
                 },
                 {
