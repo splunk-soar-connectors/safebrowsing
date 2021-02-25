@@ -12,5 +12,5 @@ SAFEBROWSING_PLATFORM_TYPES = ["ANY_PLATFORM"]
 SAFEBROWSING_CLIENT_ID = 'phantomcyber'
 SAFEBROWSING_CLIENT_VERSION = '1.0.0'
 
-SAFEBROWSING_ERR_FROM_SERVER = "Got an unknwon error from Google Safe Browsing server"
+SAFEBROWSING_ERR_FROM_SERVER = "Got an unknown error from Google Safe Browsing server"
 SAFEBROWSING_ERR_SERVER_CONNECTION = "Could not connect to Google Safe Browsing server"
