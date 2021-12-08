@@ -55,7 +55,8 @@
                     "contains": [
                         "url",
                         "domain"
-                    ]
+                    ],
+                    "order": 0
                 }
             },
             "render": {
@@ -163,7 +164,8 @@
                     "contains": [
                         "domain",
                         "url"
-                    ]
+                    ],
+                    "order": 0
                 }
             },
             "render": {
