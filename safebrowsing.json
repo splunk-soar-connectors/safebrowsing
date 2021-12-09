@@ -13,6 +13,7 @@
     "product_name": "Safe Browsing",
     "product_version_regex": ".*",
     "min_phantom_version": "4.9.39220",
+    "fips_compliant": true,
     "latest_tested_versions": [
         "Safe Browsing API v4 on 02/24/2021"
     ],
@@ -54,7 +55,8 @@
                     "contains": [
                         "url",
                         "domain"
-                    ]
+                    ],
+                    "order": 0
                 }
             },
             "render": {
@@ -162,7 +164,8 @@
                     "contains": [
                         "domain",
                         "url"
-                    ]
+                    ],
+                    "order": 0
                 }
             },
             "render": {
