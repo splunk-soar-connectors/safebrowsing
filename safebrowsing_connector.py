@@ -16,14 +16,13 @@
 #
 # Phantom App imports
 import phantom.app as phantom
-from phantom.base_connector import BaseConnector
+import requests
+import simplejson as json
 from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
 
 # Imports local to this App
 from safebrowsing_consts import *
-
-import simplejson as json
-import requests
 
 
 # Define the App Class
@@ -120,7 +119,8 @@ class SafeBrowsingConnector(BaseConnector):
         resp_json = action_result.get_data()[0]
 
         if (not resp_json):
-            message = "Google Safe Browsing has no threat information about this {}".format(param_type if param_type == 'domain' else param_type.upper())
+            message = "Google Safe Browsing has no threat information about this {}".format(
+                param_type if param_type == 'domain' else param_type.upper())
             action_result.set_summary({'num_threat_matches': 0})
 
         else:
@@ -156,12 +156,13 @@ class SafeBrowsingConnector(BaseConnector):
 if __name__ == '__main__':
 
     import sys
+
     import pudb
     pudb.set_trace()
 
     if (len(sys.argv) < 2):
         print("No test json specified as input")
-        exit(0)
+        sys.exit(0)
 
     with open(sys.argv[1]) as f:
         in_json = f.read()
@@ -173,4 +174,4 @@ if __name__ == '__main__':
         ret_val = connector._handle_action(json.dumps(in_json), None)
         print(json.dumps(json.loads(ret_val), indent=4))
 
-    exit(0)
+    sys.exit(0)
