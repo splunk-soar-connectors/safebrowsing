@@ -13,7 +13,7 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 SAFEBROWSING_BASE_URL = 'https://safebrowsing.googleapis.com/v4/'
-SAFEBROWSING_API_KEY = 'key'
+SAFEBROWSING_API_KEY = 'key'  # pragma: allowlist secret
 SAFEBROWSING_THREAT_TYPES = ["MALWARE", "SOCIAL_ENGINEERING", "POTENTIALLY_HARMFUL_APPLICATION", "UNWANTED_SOFTWARE", "MALICIOUS_BINARY"]
 SAFEBROWSING_THREAT_ENTRY_TYPES = ["URL"]
 SAFEBROWSING_PLATFORM_TYPES = ["ANY_PLATFORM"]
