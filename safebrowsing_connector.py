@@ -157,12 +157,10 @@ class SafeBrowsingConnector(BaseConnector):
     
     def _handle_url_reputation(self, param):
         # Handle URL reputation action
-
         return self._reputation(param, 'url')
         
     def _handle_domain_reputation(self, param):
         # Handle Domain reputation action
-
         return self._reputation(param, 'domain')
 
 
