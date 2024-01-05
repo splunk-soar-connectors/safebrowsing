@@ -158,14 +158,14 @@ class SafeBrowsingConnector(BaseConnector):
     def _handle_url_reputation(self, param):
         # Handle URL reputation action
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
-        self.save_progress("In querying for url reputation")
+        self.save_progress("Querying for url reputation")
 
         return self._reputation(param, 'url')
 
     def _handle_domain_reputation(self, param):
         # Handle Domain reputation action
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
-        self.save_progress("In querying for domain reputation")
+        self.save_progress("Querying for domain reputation")
 
         return self._reputation(param, 'domain')
 
