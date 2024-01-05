@@ -78,6 +78,8 @@ class SafeBrowsingConnector(BaseConnector):
 
         endpoint = 'threatLists'
 
+        self.debug_print("param", param)
+
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if (not self._make_rest_call(action_result, endpoint, {}, method=requests.get)):
@@ -86,6 +88,7 @@ class SafeBrowsingConnector(BaseConnector):
         resp_json = action_result.get_data()[0]
 
         if (not resp_json.get('threatLists')):
+            self.debug_print("Test Connectivity Failed", resp_json)
             return action_result.set_status(phantom.APP_ERROR, SAFEBROWSING_ERR_FROM_SERVER)
 
         self.save_progress("Test Connectivity Passed")
@@ -146,11 +149,21 @@ class SafeBrowsingConnector(BaseConnector):
         if (action_id == self.ACTION_ID_TEST_CONNECTIVITY):
             ret_val = self._test_connectivity(param)
         if (action_id == self.ACTION_ID_URL_REPUTATION):
-            ret_val = self._reputation(param, 'url')
+            ret_val = self._handle_url_reputation(param)
         if (action_id == self.ACTION_ID_DOMAIN_REPUTATION):
-            ret_val = self._reputation(param, 'domain')
+            ret_val = self._handle_domain_reputation(param)
 
         return ret_val
+    
+    def _handle_url_reputation(self, param):
+        # Handle URL reputation action
+
+        return self._reputation(param, 'url')
+        
+    def _handle_domain_reputation(self, param):
+        # Handle Domain reputation action
+
+        return self._reputation(param, 'domain')
 
 
 if __name__ == '__main__':
