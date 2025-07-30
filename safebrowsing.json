@@ -7,8 +7,8 @@
     "type": "information",
     "license": "Copyright (c) 2016-2025 Splunk Inc.",
     "main_module": "safebrowsing_connector.py",
-    "app_version": "2.0.6",
-    "utctime_updated": "2025-04-11T18:52:01.437466Z",
+    "app_version": "2.0.7",
+    "utctime_updated": "2025-07-30T17:52:37.985540Z",
     "product_vendor": "Google",
     "product_name": "Safe Browsing",
     "product_version_regex": ".*",
@@ -17,7 +17,10 @@
     "latest_tested_versions": [
         "Safe Browsing API v4 on 02/24/2021"
     ],
-    "python_version": ["3.9", "3.13"],
+    "python_version": [
+        "3.9",
+        "3.13"
+    ],
     "logo": "logo_google.svg",
     "logo_dark": "logo_google_dark.svg",
     "configuration": {
