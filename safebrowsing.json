@@ -17,7 +17,7 @@
     "latest_tested_versions": [
         "Safe Browsing API v4 on 02/24/2021"
     ],
-    "python_version": "3",
+    "python_version": ["3.9", "3.13"],
     "logo": "logo_google.svg",
     "logo_dark": "logo_google_dark.svg",
     "configuration": {
