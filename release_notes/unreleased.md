@@ -1,3 +1,3 @@
 **Unreleased**
 
-* Chore: refresh development checks (temporary baseline note).
+* Enabled TLS certificate verification for Google Safe Browsing API requests. (PAPP-38040)

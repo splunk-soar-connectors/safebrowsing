@@ -52,7 +52,7 @@ class SafeBrowsingConnector(BaseConnector):
         params = {"key": self._api_key}
 
         try:
-            response = method(self._base_url + endpoint, data=body, params=params, verify=False)
+            response = method(self._base_url + endpoint, data=body, params=params, verify=True)
 
             resp_json = response.json()
 
