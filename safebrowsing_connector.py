@@ -57,7 +57,10 @@ class SafeBrowsingConnector(BaseConnector):
             resp_json = response.json()
 
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, SAFEBROWSING_ERR_SERVER_CONNECTION, e)
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                f"{SAFEBROWSING_ERR_SERVER_CONNECTION}: {type(e).__name__}",
+            )
 
         action_result.add_data(resp_json)
 
