@@ -1,9 +1,9 @@
 # Safe Browsing
 
-Publisher: Splunk \
-Connector Version: 2.0.8 \
-Product Vendor: Google \
-Product Name: Safe Browsing \
+Publisher: Splunk <br>
+Connector Version: 2.0.8 <br>
+Product Vendor: Google <br>
+Product Name: Safe Browsing <br>
 Minimum Product Version: 5.1.0
 
 This app Integrate with Google Safe Browsing to execute reputation-based actions
@@ -18,15 +18,15 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Checks API Key with Google Safe Browsing \
-[url reputation](#action-url-reputation) - Determine the reputation of a URL \
+[test connectivity](#action-test-connectivity) - Checks API Key with Google Safe Browsing <br>
+[url reputation](#action-url-reputation) - Determine the reputation of a URL <br>
 [domain reputation](#action-domain-reputation) - Determine the reputation of a domain
 
 ## action: 'test connectivity'
 
 Checks API Key with Google Safe Browsing
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -41,7 +41,7 @@ No Output
 
 Determine the reputation of a URL
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 Checks with Google Safe Browsing for records of a URL's previous malicious behavior.
@@ -72,7 +72,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Determine the reputation of a domain
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 Checks with Google Safe Browsing for records of a domain's previous malicious behavior.
@@ -103,7 +103,7 @@ ______________________________________________________________________
 
 Auto-generated Splunk SOAR Connector documentation.
 
-Copyright 2025 Splunk Inc.
+Copyright 2026 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
