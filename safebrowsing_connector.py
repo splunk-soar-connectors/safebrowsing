@@ -1,6 +1,6 @@
 # File: safebrowsing_connector.py
 #
-# Copyright (c) 2016-2025 Splunk Inc.
+# Copyright (c) 2016-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,12 +52,15 @@ class SafeBrowsingConnector(BaseConnector):
         params = {"key": self._api_key}
 
         try:
-            response = method(self._base_url + endpoint, data=body, params=params, verify=False)
+            response = method(self._base_url + endpoint, data=body, params=params, verify=True)
 
             resp_json = response.json()
 
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, SAFEBROWSING_ERR_SERVER_CONNECTION, e)
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                f"{SAFEBROWSING_ERR_SERVER_CONNECTION}: {type(e).__name__}",
+            )
 
         action_result.add_data(resp_json)
 

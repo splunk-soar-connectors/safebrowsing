@@ -1,1 +1,4 @@
 **Unreleased**
+
+* Enabled TLS certificate verification for Google Safe Browsing API requests. (PAPP-38040)
+* Prevented API credentials from appearing in transport failure messages. (PAPP-38040)
