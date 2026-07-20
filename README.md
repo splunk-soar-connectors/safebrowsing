@@ -1,7 +1,7 @@
 # Safe Browsing
 
 Publisher: Splunk <br>
-Connector Version: 2.0.8 <br>
+Connector Version: 2.0.9 <br>
 Product Vendor: Google <br>
 Product Name: Safe Browsing <br>
 Minimum Product Version: 5.1.0
