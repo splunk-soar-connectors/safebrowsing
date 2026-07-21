@@ -49,10 +49,10 @@ class SafeBrowsingConnector(BaseConnector):
         return phantom.APP_SUCCESS
 
     def _make_rest_call(self, action_result, endpoint, body, method=requests.post):
-        params = {"key": self._api_key}
+        headers = {"X-Goog-Api-Key": self._api_key}
 
         try:
-            response = method(self._base_url + endpoint, data=body, params=params, verify=True)
+            response = method(self._base_url + endpoint, data=body, headers=headers, verify=True)
 
             resp_json = response.json()
 
