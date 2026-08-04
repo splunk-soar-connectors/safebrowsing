@@ -73,7 +73,9 @@ class SafeBrowsingConnector(BaseConnector):
         action_result.add_data(resp_json)
 
         if response.status_code != 200:
-            return action_result.set_status(phantom.APP_ERROR, resp_json.get("error", {}).get("message", SAFEBROWSING_ERR_FROM_SERVER))
+            error_details = resp_json.get("error") if isinstance(resp_json, dict) else None
+            error_message = error_details.get("message") if isinstance(error_details, dict) else None
+            return action_result.set_status(phantom.APP_ERROR, error_message or SAFEBROWSING_ERR_FROM_SERVER)
 
         return phantom.APP_SUCCESS
 
