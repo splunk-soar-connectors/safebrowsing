@@ -15,6 +15,8 @@
 #
 #
 # Phantom App imports
+import re
+
 import phantom.app as phantom
 import requests
 import simplejson as json
@@ -52,7 +54,13 @@ class SafeBrowsingConnector(BaseConnector):
         headers = {"X-Goog-Api-Key": self._api_key}
 
         try:
-            response = method(self._base_url + endpoint, data=body, headers=headers, verify=True)
+            response = method(
+                self._base_url + endpoint,
+                data=body,
+                headers=headers,
+                verify=True,
+                timeout=SAFEBROWSING_DEFAULT_REQUEST_TIMEOUT,
+            )
 
             resp_json = response.json()
 
@@ -65,7 +73,9 @@ class SafeBrowsingConnector(BaseConnector):
         action_result.add_data(resp_json)
 
         if response.status_code != 200:
-            return action_result.set_status(phantom.APP_ERROR, resp_json.get("error", {}).get("message", SAFEBROWSING_ERR_FROM_SERVER))
+            error_details = resp_json.get("error") if isinstance(resp_json, dict) else None
+            error_message = error_details.get("message") if isinstance(error_details, dict) else None
+            return action_result.set_status(phantom.APP_ERROR, error_message or SAFEBROWSING_ERR_FROM_SERVER)
 
         return phantom.APP_SUCCESS
 
@@ -99,7 +109,19 @@ class SafeBrowsingConnector(BaseConnector):
 
         client = {"clientId": SAFEBROWSING_CLIENT_ID, "clientVersion": SAFEBROWSING_CLIENT_VERSION}
 
-        url_list = [{"url": param[param_type]}]
+        query_value = param[param_type].strip()
+        query_value = re.sub(
+            r"^(hxxps?|https?)(?::|\[:\])//",
+            lambda match: "{}://".format(match.group(1).lower().replace("xx", "tt")),
+            query_value,
+            flags=re.IGNORECASE,
+        )
+        query_value = re.sub(r"(?:\[(?:\.|dot)\]|\((?:\.|dot)\)|\{\.\})", ".", query_value, flags=re.IGNORECASE)
+
+        if query_value != param[param_type]:
+            self.save_progress(f"Input {param_type} was normalized before the reputation lookup")
+
+        url_list = [{"url": query_value}]
 
         threat_info = {
             "threatTypes": SAFEBROWSING_THREAT_TYPES,
