@@ -54,7 +54,13 @@ class SafeBrowsingConnector(BaseConnector):
         headers = {"X-Goog-Api-Key": self._api_key}
 
         try:
-            response = method(self._base_url + endpoint, data=body, headers=headers, verify=True)
+            response = method(
+                self._base_url + endpoint,
+                data=body,
+                headers=headers,
+                verify=True,
+                timeout=SAFEBROWSING_DEFAULT_REQUEST_TIMEOUT,
+            )
 
             resp_json = response.json()
 
