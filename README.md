@@ -4,9 +4,20 @@ Publisher: Splunk <br>
 Connector Version: 2.0.10 <br>
 Product Vendor: Google <br>
 Product Name: Safe Browsing <br>
-Minimum Product Version: 5.1.0
+Minimum Product Version: 7.0.0
 
 This app Integrate with Google Safe Browsing to execute reputation-based actions
+
+## Make Request
+
+- Sends an authenticated HTTP request to the Google Safe Browsing API (base URL
+  https://safebrowsing.googleapis.com/v4). The API key from the asset configuration is added
+  automatically in the X-Goog-Api-Key header, so only the endpoint path (for example,
+  /threatLists) needs to be provided.
+- Turning off the verify_ssl parameter sends the API key over a connection whose certificate is not
+  checked. Leave it enabled unless a trusted proxy requires otherwise.
+- The action succeeds whenever Google Safe Browsing answers, even with an error status such as 400
+  or 403. Check status_code in the result data to see whether the request worked.
 
 ### Configuration variables
 
@@ -19,6 +30,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 ### Supported Actions
 
 [test connectivity](#action-test-connectivity) - Checks API Key with Google Safe Browsing <br>
+[make request](#action-make-request) - Make an authenticated request to the Google Safe Browsing API. <br>
 [url reputation](#action-url-reputation) - Determine the reputation of a URL <br>
 [domain reputation](#action-domain-reputation) - Determine the reputation of a domain
 
@@ -29,13 +41,59 @@ Checks API Key with Google Safe Browsing
 Type: **test** <br>
 Read only: **True**
 
+Basic test for app.
+
 #### Action Parameters
 
 No parameters are required for this action
 
 #### Action Output
 
-No Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string | | success failure |
+action_result.message | string | | |
+summary.total_objects | numeric | | 1 |
+summary.total_objects_successful | numeric | | 1 |
+
+## action: 'make request'
+
+Make an authenticated request to the Google Safe Browsing API.
+
+Type: **generic** <br>
+Read only: **False**
+
+'make request' action for the app. Used to handle arbitrary HTTP requests with the app's asset
+
+#### Action Parameters
+
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**http_method** | required | The HTTP method to use for the request. | string | |
+**endpoint** | required | Google Safe Browsing API endpoint to call, appended to the base URL (https://safebrowsing.googleapis.com/v4). Do not include the base URL. Example: '/threatLists' | string | |
+**headers** | optional | The headers to send with the request (JSON object). An example is {"Content-Type": "application/json"} | string | |
+**query_parameters** | optional | Parameters to append to the URL (JSON object or query string). An example is ?key=value&key2=value2 | string | |
+**body** | optional | The body to send with the request (JSON object). An example is {"key": "value", "key2": "value2"} | string | |
+**timeout** | optional | The timeout for the request in seconds. | numeric | |
+**verify_ssl** | optional | Whether to verify the SSL certificate. Default is True. | boolean | |
+
+#### Action Output
+
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string | | success failure |
+action_result.message | string | | |
+action_result.parameter.http_method | string | | |
+action_result.parameter.endpoint | string | | |
+action_result.parameter.headers | string | | |
+action_result.parameter.query_parameters | string | | |
+action_result.parameter.body | string | | |
+action_result.parameter.timeout | numeric | | |
+action_result.parameter.verify_ssl | boolean | | |
+action_result.data.\*.status_code | numeric | | 200 404 500 |
+action_result.data.\*.response_body | string | | {"key": "value"} |
+summary.total_objects | numeric | | 1 |
+summary.total_objects_successful | numeric | | 1 |
 
 ## action: 'url reputation'
 
@@ -56,15 +114,15 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string | | success failed |
-action_result.parameter.url | string | `url` `domain` | https://www.test.com |
-action_result.data.\*.matches.\*.cacheDuration | string | | |
-action_result.data.\*.matches.\*.platformType | string | | |
-action_result.data.\*.matches.\*.threat.url | string | `url` `domain` | https://www.test.com |
-action_result.data.\*.matches.\*.threatEntryType | string | | |
+action_result.status | string | | success failure |
+action_result.message | string | | |
+action_result.parameter.url | string | `url` `domain` | |
 action_result.data.\*.matches.\*.threatType | string | | |
+action_result.data.\*.matches.\*.platformType | string | | |
+action_result.data.\*.matches.\*.threatEntryType | string | | |
+action_result.data.\*.matches.\*.threat.url | string | `url` `domain` | https://www.test.com |
+action_result.data.\*.matches.\*.cacheDuration | string | | |
 action_result.summary.num_threat_matches | numeric | | |
-action_result.message | string | | Google Safe Browsing has no threat information about this URL |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
 
@@ -87,15 +145,15 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string | | success failed |
-action_result.parameter.domain | string | `domain` `url` | www.test.com |
-action_result.data.\*.matches.\*.cacheDuration | string | | |
-action_result.data.\*.matches.\*.platformType | string | | |
-action_result.data.\*.matches.\*.threat.url | string | `domain` `url` | www.test.com |
-action_result.data.\*.matches.\*.threatEntryType | string | | |
+action_result.status | string | | success failure |
+action_result.message | string | | |
+action_result.parameter.domain | string | `domain` `url` | |
 action_result.data.\*.matches.\*.threatType | string | | |
+action_result.data.\*.matches.\*.platformType | string | | |
+action_result.data.\*.matches.\*.threatEntryType | string | | |
+action_result.data.\*.matches.\*.threat.url | string | `domain` `url` | www.test.com |
+action_result.data.\*.matches.\*.cacheDuration | string | | |
 action_result.summary.num_threat_matches | numeric | | |
-action_result.message | string | | Google Safe Browsing has no threat information about this domain |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
 
