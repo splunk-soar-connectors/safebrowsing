@@ -6,3 +6,5 @@
   /threatLists) needs to be provided.
 - Turning off the verify_ssl parameter sends the API key over a connection whose certificate is not
   checked. Leave it enabled unless a trusted proxy requires otherwise.
+- The action succeeds whenever Google Safe Browsing answers, even with an error status such as 400
+  or 403. Check status_code in the result data to see whether the request worked.

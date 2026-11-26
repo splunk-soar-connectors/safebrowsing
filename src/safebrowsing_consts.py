@@ -43,3 +43,5 @@ SAFEBROWSING_ERROR_FROM_SERVER = (
 SAFEBROWSING_ERROR_SERVER_CONNECTION = (
     "Could not connect to Google Safe Browsing server"
 )
+SAFEBROWSING_EMPTY_PARAM = "The '{name}' parameter cannot be empty"
+SAFEBROWSING_ERROR_CA_BUNDLE = "Unable to load the configured CA trust bundle"

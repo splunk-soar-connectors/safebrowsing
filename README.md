@@ -16,6 +16,8 @@ This app Integrate with Google Safe Browsing to execute reputation-based actions
   /threatLists) needs to be provided.
 - Turning off the verify_ssl parameter sends the API key over a connection whose certificate is not
   checked. Leave it enabled unless a trusted proxy requires otherwise.
+- The action succeeds whenever Google Safe Browsing answers, even with an error status such as 400
+  or 403. Check status_code in the result data to see whether the request worked.
 
 ### Configuration variables
 
@@ -69,9 +71,9 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **http_method** | required | The HTTP method to use for the request. | string | |
 **endpoint** | required | Google Safe Browsing API endpoint to call, appended to the base URL (https://safebrowsing.googleapis.com/v4). Do not include the base URL. Example: '/threatLists' | string | |
-**headers** | optional | The headers to send with the request (JSON object). An example is {'Content-Type': 'application/json'} | string | |
+**headers** | optional | The headers to send with the request (JSON object). An example is {"Content-Type": "application/json"} | string | |
 **query_parameters** | optional | Parameters to append to the URL (JSON object or query string). An example is ?key=value&key2=value2 | string | |
-**body** | optional | The body to send with the request (JSON object). An example is {'key': 'value', 'key2': 'value2'} | string | |
+**body** | optional | The body to send with the request (JSON object). An example is {"key": "value", "key2": "value2"} | string | |
 **timeout** | optional | The timeout for the request in seconds. | numeric | |
 **verify_ssl** | optional | Whether to verify the SSL certificate. Default is True. | boolean | |
 

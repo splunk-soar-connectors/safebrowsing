@@ -17,16 +17,10 @@ from soar_sdk.logging import getLogger
 from soar_sdk.params import Param, Params
 
 from ..asset import Asset
-from ..helpers import make_rest_call
+from ..helpers import lookup_threat_matches, require_value
 from ..safebrowsing_consts import (
-    SAFEBROWSING_CLIENT_ID,
-    SAFEBROWSING_CLIENT_VERSION,
     SAFEBROWSING_NO_THREAT_INFO,
-    SAFEBROWSING_PLATFORM_TYPES,
-    SAFEBROWSING_THREAT_ENTRY_TYPES,
     SAFEBROWSING_THREAT_INFO_RETRIEVED,
-    SAFEBROWSING_THREAT_MATCHES_ENDPOINT,
-    SAFEBROWSING_THREAT_TYPES,
 )
 
 logger = getLogger()
@@ -41,15 +35,15 @@ class DomainReputationParams(Params):
     )
 
 
-class DomainThreatOutput(ActionOutput):
+class DomainThreatOutput(PermissiveActionOutput):
     url: str | None = OutputField(
         cef_types=["domain", "url"], example_values=["www.test.com"]
     )
 
 
 class DomainThreatMatchOutput(PermissiveActionOutput):
-    # Permissive: Google may add match fields (e.g. threatEntryMetadata) that the
-    # legacy app stored as-is.
+    # Permissive, like the other output models in this file: the legacy app stored
+    # Google's response as-is, and Google may add fields (e.g. threatEntryMetadata).
     threatType: str | None = OutputField(column_name="Threat Type")
     platformType: str | None = OutputField(column_name="Platform Type")
     threatEntryType: str | None = OutputField(column_name="Threat Entry Type")
@@ -57,7 +51,7 @@ class DomainThreatMatchOutput(PermissiveActionOutput):
     cacheDuration: str | None = None
 
 
-class DomainReputationOutput(ActionOutput):
+class DomainReputationOutput(PermissiveActionOutput):
     matches: list[DomainThreatMatchOutput] | None = None
 
 
@@ -71,21 +65,8 @@ def domain_reputation(
     asset: Asset,
 ) -> DomainReputationOutput:
     logger.progress("Querying for domain reputation")
-    body = {
-        "client": {
-            "clientId": SAFEBROWSING_CLIENT_ID,
-            "clientVersion": SAFEBROWSING_CLIENT_VERSION,
-        },
-        "threatInfo": {
-            "threatTypes": SAFEBROWSING_THREAT_TYPES,
-            "platformTypes": SAFEBROWSING_PLATFORM_TYPES,
-            "threatEntryTypes": SAFEBROWSING_THREAT_ENTRY_TYPES,
-            "threatEntries": [{"url": params.domain}],
-        },
-    }
-    resp_json = make_rest_call(
-        asset, SAFEBROWSING_THREAT_MATCHES_ENDPOINT, method="POST", body=body
-    )
+    domain = require_value(params.domain, "domain")
+    resp_json = lookup_threat_matches(asset, domain)
 
     output = DomainReputationOutput(**resp_json)
     num_matches = len(output.matches or [])

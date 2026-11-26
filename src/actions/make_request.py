@@ -19,7 +19,13 @@ from soar_sdk.exceptions import ActionFailure
 from soar_sdk.params import MakeRequestParams, Param
 
 from ..asset import Asset
-from ..helpers import auth_headers, build_url, connection_error_message
+from ..helpers import (
+    auth_headers,
+    build_url,
+    connection_error_message,
+    get_tls_verification,
+    require_value,
+)
 from ..safebrowsing_consts import (
     SAFEBROWSING_API_KEY_HEADER,
     SAFEBROWSING_BASE_URL,
@@ -36,6 +42,20 @@ class SafeBrowsingMakeRequestParams(MakeRequestParams):
         ),
         required=True,
     )
+    headers: str = Param(
+        description=(
+            "The headers to send with the request (JSON object). "
+            'An example is {"Content-Type": "application/json"}'
+        ),
+        required=False,
+    )
+    body: str = Param(
+        description=(
+            "The body to send with the request (JSON object). "
+            'An example is {"key": "value", "key2": "value2"}'
+        ),
+        required=False,
+    )
 
 
 def _parse_json(value: str, name: str) -> object:
@@ -49,11 +69,12 @@ def http_action(
     params: SafeBrowsingMakeRequestParams, asset: Asset
 ) -> MakeRequestOutput:
     """Make an authenticated request to the Google Safe Browsing API."""
-    if params.endpoint.startswith(("http://", "https://")):
+    endpoint = require_value(params.endpoint, "endpoint")
+    if endpoint.startswith(("http://", "https://")):
         raise ActionFailure(
-            f"Invalid endpoint: {params.endpoint}. Do not include the base URL."
+            f"Invalid endpoint: {endpoint}. Do not include the base URL."
         )
-    url = build_url(params.endpoint)
+    url = build_url(endpoint)
 
     headers: dict[str, str] = {}
     if params.headers:
@@ -85,7 +106,7 @@ def http_action(
     body = _parse_json(params.body, "body") if params.body else None
 
     try:
-        with httpx.Client(verify=params.verify_ssl) as client:
+        with httpx.Client(verify=get_tls_verification(params.verify_ssl)) as client:
             response = client.request(
                 params.http_method,
                 url,
